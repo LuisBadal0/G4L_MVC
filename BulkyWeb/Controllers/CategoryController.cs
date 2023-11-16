@@ -18,11 +18,25 @@ namespace BulkyWeb.Controllers
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
-
         public IActionResult Create()
-        {
+        { 
             return View();
-
+        }
+        [HttpPost]
+        public IActionResult Create(Category objcat)
+        {
+            //If Name is same value as DisplayOrder
+            //if (objcat.Name.ToLower()==objcat.DisplayOrder.ToString())
+            //{
+            //    ModelState.AddModelError("name", "The Display Order must be diferent from the Name");
+            //}
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(objcat);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Category");
+            }
+            return View();
         }
     }
 }
