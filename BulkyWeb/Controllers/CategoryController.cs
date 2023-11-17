@@ -7,16 +7,16 @@ namespace StoreGWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
-        public CategoryController(ICategoryRepository db)
+        private readonly IUnitOfWork _UnitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             //Get values from db to a variable
-            _categoryRepo = db;
+            _UnitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
             //get all categories
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _UnitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
         public IActionResult Create()
@@ -33,8 +33,8 @@ namespace StoreGWeb.Controllers
             //}
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(objcat);
-                _categoryRepo.Save();
+                _UnitOfWork.Category.Add(objcat);
+                _UnitOfWork.Save();
                 //Add notification to the user
                 TempData["success"] = "Category Added!";
                 return RedirectToAction("Index", "Category");
@@ -48,7 +48,7 @@ namespace StoreGWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u=>u.Id==id);
+            Category? categoryFromDb = _UnitOfWork.Category.Get(u=>u.Id==id);
             //Other ways to get value
             //Category? categoryFromDb1 = _categoryRepo.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? categoryFromDb2 = _categoryRepo.Categories.Where(u=>u.Id==id).FirstOrDefault();
@@ -63,8 +63,8 @@ namespace StoreGWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Update(objcat);
-                _categoryRepo.Save();
+                _UnitOfWork.Category.Update(objcat);
+                _UnitOfWork.Save();
                 TempData["success"] = "Category Updated!";
                 return RedirectToAction("Index", "Category");
             }
@@ -77,7 +77,7 @@ namespace StoreGWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _categoryRepo.Get(u => u.Id == id);
+            Category? categoryFromDb = _UnitOfWork.Category.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -87,13 +87,13 @@ namespace StoreGWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? objcat = _categoryRepo.Get(u => u.Id == id);
+            Category? objcat = _UnitOfWork.Category.Get(u => u.Id == id);
             if (objcat == null)
             {
                 return NotFound();
             }
-            _categoryRepo.Remove(objcat);
-            _categoryRepo.Save();
+            _UnitOfWork.Category.Remove(objcat);
+            _UnitOfWork.Save();
             TempData["success"] = "Category Deleted!";
             return RedirectToAction("Index");
         }
