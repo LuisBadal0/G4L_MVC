@@ -3,10 +3,12 @@ using StoreG.Models;
 using StoreGWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace StoreGWeb.Controllers
+namespace StoreGWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
+        
         private readonly IUnitOfWork _UnitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)
         {
@@ -48,7 +50,7 @@ namespace StoreGWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _UnitOfWork.Category.Get(u=>u.Id==id);
+            Category? categoryFromDb = _UnitOfWork.Category.Get(u => u.Id == id);
             //Other ways to get value
             //Category? categoryFromDb1 = _categoryRepo.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? categoryFromDb2 = _categoryRepo.Categories.Where(u=>u.Id==id).FirstOrDefault();
