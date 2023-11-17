@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BulkyWeb.DataAccess.Migrations
+namespace StoreGWeb.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class addCategoriesTabledoDb : Migration

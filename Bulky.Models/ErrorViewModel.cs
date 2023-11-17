@@ -1,4 +1,4 @@
-namespace Bulky.Models
+namespace StoreG.Models
 {
     public class ErrorViewModel
     {

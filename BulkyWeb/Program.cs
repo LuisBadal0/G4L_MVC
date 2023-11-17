@@ -1,6 +1,6 @@
-using Bulky.DataAccess.Repository;
-using Bulky.DataAccess.Repository.IRepository;
-using BulkyWeb.DataAccess.Data;
+using StoreG.DataAccess.Repository;
+using StoreG.DataAccess.Repository.IRepository;
+using StoreGWeb.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

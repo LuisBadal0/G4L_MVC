@@ -1,8 +1,8 @@
-using Bulky.Models;
+using StoreG.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace BulkyWeb.Controllers
+namespace StoreGWeb.Controllers
 {
     public class HomeController : Controller
     {

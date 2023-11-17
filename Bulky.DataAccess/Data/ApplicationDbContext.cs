@@ -1,7 +1,7 @@
-﻿using Bulky.Models;
+﻿using StoreG.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BulkyWeb.DataAccess.Data
+namespace StoreGWeb.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

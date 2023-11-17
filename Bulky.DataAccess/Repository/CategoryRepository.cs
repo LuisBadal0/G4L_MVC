@@ -1,6 +1,6 @@
-﻿using Bulky.DataAccess.Repository.IRepository;
-using Bulky.Models;
-using BulkyWeb.DataAccess.Data;
+﻿using StoreG.DataAccess.Repository.IRepository;
+using StoreG.Models;
+using StoreGWeb.DataAccess.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bulky.DataAccess.Repository
+namespace StoreG.DataAccess.Repository
 {
     public class CategoryRepository : Repository<Category>, ICategoryRepository 
     {

@@ -1,9 +1,9 @@
-﻿using Bulky.DataAccess.Repository.IRepository;
-using Bulky.Models;
-using BulkyWeb.DataAccess.Data;
+﻿using StoreG.DataAccess.Repository.IRepository;
+using StoreG.Models;
+using StoreGWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers
+namespace StoreGWeb.Controllers
 {
     public class CategoryController : Controller
     {
