@@ -77,7 +77,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
                     if (!string.IsNullOrEmpty(productVM.Product.ImageURL))
                     {
                         //Delete old image
-                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('/'));
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('\\'));
 
                         if(System.IO.File.Exists(oldImagePath))
                         {
