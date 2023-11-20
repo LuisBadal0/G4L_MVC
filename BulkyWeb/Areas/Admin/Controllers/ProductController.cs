@@ -4,6 +4,7 @@ using StoreGWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StoreG.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 
 namespace StoreGWeb.Areas.Admin.Controllers
 {
@@ -12,10 +13,12 @@ namespace StoreGWeb.Areas.Admin.Controllers
     {
 
         private readonly IUnitOfWork _UnitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _WebHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             //Get values from db to a variable
             _UnitOfWork = unitOfWork;
+            _WebHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -63,6 +66,22 @@ namespace StoreGWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _WebHostEnvironment.WebRootPath;
+                if(file != null)
+                {
+                    //Get random query filename
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    //Get location of the folder
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        //Copy the file to the folder
+                        file.CopyTo(fileStream);
+                    }
+
+                    productVM.Product.ImageURL = @"\images\product\" + fileName;
+                }
                 _UnitOfWork.Product.Add(productVM.Product);
                 _UnitOfWork.Save();
                 //Add notification to the user
