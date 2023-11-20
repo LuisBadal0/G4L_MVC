@@ -21,30 +21,34 @@ namespace StoreGWeb.Areas.Admin.Controllers
         {
             //get all Products
             List<Product> objProductList = _UnitOfWork.Product.GetAll().ToList();
-            //Get list using Projection EF Core
-            IEnumerable<SelectListItem> CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
+
             return View(objProductList);
         }
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            //Get list using Projection EF Core
-            IEnumerable<SelectListItem> CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-
             //TempData
             ProductVM productVM = new()
             {
-                CategoryList = CategoryList,
+                //get list projection EF Core
+                CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
                 Product = new Product()
             };
-            return View(productVM);
+            if (id == null || id == 0)
+            {
+                //Create
+                return View(productVM);
+            }
+            else
+            {
+                //Update
+                productVM.Product = _UnitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
+
             //ViewData
             //ViewData["CategoryList"] = CategoryList;
             //asp-items="@(ViewData["CategoryList"] as Ienumerable<SelectListItem>)"
@@ -55,7 +59,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -73,36 +77,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
                     Value = u.Id.ToString()
                 });
                 return View(productVM);
-            }            
-        }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
             }
-            Product? productFromDb = _UnitOfWork.Product.Get(u => u.Id == id);
-            //Other ways to get value
-            //Product? productFromDb1 = _ProductRepo.Categories.FirstOrDefault(u=>u.Id==id);
-            //Product? productFromDb2 = _ProductRepo.Categories.Where(u=>u.Id==id).FirstOrDefault();
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-        [HttpPost]
-        public IActionResult Edit(ProductVM objcat)
-        {
-            if (ModelState.IsValid)
-            {
-                _UnitOfWork.Product.Update(objcat.Product);
-                _UnitOfWork.Save();
-                TempData["success"] = "Product Updated!";
-                return RedirectToAction("Index", "Product");
-            }
-            return View();
         }
 
         public IActionResult Delete(int? id)
