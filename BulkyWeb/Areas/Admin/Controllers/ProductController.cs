@@ -23,7 +23,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             //get all Products
-            List<Product> objProductList = _UnitOfWork.Product.GetAll(includeProperties:"Category").ToList();
+            List<Product> objProductList = _UnitOfWork.Product.GetAll(includeProperties: "Category").ToList();
 
             return View(objProductList);
         }
@@ -67,7 +67,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _WebHostEnvironment.WebRootPath;
-                if(file != null)
+                if (file != null)
                 {
                     //Get random query filename
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
@@ -79,7 +79,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
                         //Delete old image
                         var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('\\'));
 
-                        if(System.IO.File.Exists(oldImagePath))
+                        if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
                         }
@@ -93,7 +93,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
                     productVM.Product.ImageURL = @"\images\product\" + fileName;
                 }
-                if(productVM.Product.Id == 0)
+                if (productVM.Product.Id == 0)
                 {
                     _UnitOfWork.Product.Add(productVM.Product);
                 }
@@ -101,7 +101,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
                 {
                     _UnitOfWork.Product.Update(productVM.Product);
                 }
-               
+
                 _UnitOfWork.Save();
                 //Add notification to the user
                 TempData["success"] = "Product Added!";
@@ -117,41 +117,37 @@ namespace StoreGWeb.Areas.Admin.Controllers
                 return View(productVM);
             }
         }
-
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product? productFromDb = _UnitOfWork.Product.Get(u => u.Id == id);
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
-        {
-            Product? objcat = _UnitOfWork.Product.Get(u => u.Id == id);
-            if (objcat == null)
-            {
-                return NotFound();
-            }
-            _UnitOfWork.Product.Remove(objcat);
-            _UnitOfWork.Save();
-            TempData["success"] = "Product Deleted!";
-            return RedirectToAction("Index");
-        }
         #region API CALLS
 
         [HttpGet]
-        public IActionResult GetAll(int id) {
+        public IActionResult GetAll(int id)
+        {
 
             List<Product> objProductList = _UnitOfWork.Product.GetAll(includeProperties: "Category").ToList();
 
-            return Json(new {data = objProductList});
+            return Json(new { data = objProductList });
+        }
+        public IActionResult Delete(int id)
+        {
+            var productToBeDeleted = _UnitOfWork.Product.Get(u => u.Id == id);
+
+            if (productToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            //Delete old image
+            var oldImagePath = Path.Combine(_WebHostEnvironment.WebRootPath, productToBeDeleted.ImageURL.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+            _UnitOfWork.Product.Remove(productToBeDeleted);
+            _UnitOfWork.Save();
+
+            return Json(new { success = true, message = "Deleted successfully" });
         }
         #endregion
     }
