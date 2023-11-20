@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StoreG.Models
 {
@@ -39,11 +40,13 @@ namespace StoreG.Models
         [DisplayName("Price for 50-1000")]
         [Range(1, 2000)]
         public double Price100 { get; set; }
-
+        [DisplayName("Categories")]
+        
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
+        [ValidateNever]
         public Category Category { get; set; }
-
+        [ValidateNever]
         public string ImageURL { get; set; }
     }
 }

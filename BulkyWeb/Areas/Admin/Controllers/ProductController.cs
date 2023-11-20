@@ -2,13 +2,15 @@
 using StoreG.Models;
 using StoreGWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using StoreG.Models.ViewModels;
 
 namespace StoreGWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController : Controller
     {
-        
+
         private readonly IUnitOfWork _UnitOfWork;
         public ProductController(IUnitOfWork unitOfWork)
         {
@@ -19,24 +21,59 @@ namespace StoreGWeb.Areas.Admin.Controllers
         {
             //get all Products
             List<Product> objProductList = _UnitOfWork.Product.GetAll().ToList();
+            //Get list using Projection EF Core
+            IEnumerable<SelectListItem> CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
             return View(objProductList);
         }
         public IActionResult Create()
         {
-            return View();
+            //Get list using Projection EF Core
+            IEnumerable<SelectListItem> CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
+            //TempData
+            ProductVM productVM = new()
+            {
+                CategoryList = CategoryList,
+                Product = new Product()
+            };
+            return View(productVM);
+            //ViewData
+            //ViewData["CategoryList"] = CategoryList;
+            //asp-items="@(ViewData["CategoryList"] as Ienumerable<SelectListItem>)"
+
+            //ViewBag.CategoryList = CategoryList;
+
+
+
         }
         [HttpPost]
-        public IActionResult Create(Product objcat)
+        public IActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _UnitOfWork.Product.Add(objcat);
+                _UnitOfWork.Product.Add(productVM.Product);
                 _UnitOfWork.Save();
                 //Add notification to the user
                 TempData["success"] = "Product Added!";
                 return RedirectToAction("Index", "Product");
             }
-            return View();
+            else
+            {
+                productVM.CategoryList = _UnitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+                return View(productVM);
+            }            
         }
 
         public IActionResult Edit(int? id)
@@ -56,11 +93,11 @@ namespace StoreGWeb.Areas.Admin.Controllers
             return View(productFromDb);
         }
         [HttpPost]
-        public IActionResult Edit(Product objcat)
+        public IActionResult Edit(ProductVM objcat)
         {
             if (ModelState.IsValid)
             {
-                _UnitOfWork.Product.Update(objcat);
+                _UnitOfWork.Product.Update(objcat.Product);
                 _UnitOfWork.Save();
                 TempData["success"] = "Product Updated!";
                 return RedirectToAction("Index", "Product");
