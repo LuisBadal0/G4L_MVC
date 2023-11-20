@@ -144,5 +144,15 @@ namespace StoreGWeb.Areas.Admin.Controllers
             TempData["success"] = "Product Deleted!";
             return RedirectToAction("Index");
         }
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll(int id) {
+
+            List<Product> objProductList = _UnitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+
+            return Json(new {data = objProductList});
+        }
+        #endregion
     }
 }
