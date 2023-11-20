@@ -23,7 +23,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             //get all Products
-            List<Product> objProductList = _UnitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _UnitOfWork.Product.GetAll(includeProperties:"Category").ToList();
 
             return View(objProductList);
         }
