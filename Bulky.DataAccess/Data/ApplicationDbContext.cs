@@ -18,7 +18,7 @@ namespace StoreGWeb.DataAccess.Data
                 new Category { Id = 1, Name = "RPG", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "Action", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "Sports", DisplayOrder = 3 },
-                new Category { Id = 4, Name = "Horror", DisplayOrder = 3 }
+                new Category { Id = 4, Name = "Horror", DisplayOrder = 4 }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -30,7 +30,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "BANDAI NAMCO Entertainment, FromSoftware, Inc ",
                     ListPrice = 31,
                     Price50 = 26,
-                    Price100 = 21
+                    Price100 = 21,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -41,7 +42,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "Electronic Arts",
                     ListPrice = 41,
                     Price50 = 36,
-                    Price100 = 31
+                    Price100 = 31,
+                    CategoryId = 3
                 },
                 new Product
                 {
@@ -52,7 +54,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "Square Enix",
                     ListPrice = 39,
                     Price50 = 34,
-                    Price100 = 29
+                    Price100 = 29,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -63,7 +66,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "CAPCOM Co., Ltd.",
                     ListPrice = 30,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 3
                 },
                 new Product
                 {
@@ -74,7 +78,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "NEOWIZ",
                     ListPrice = 36,
                     Price50 = 31,
-                    Price100 = 26
+                    Price100 = 26,
+                    CategoryId = 2
                 },
                 new Product
                 {
@@ -85,7 +90,8 @@ namespace StoreGWeb.DataAccess.Data
                     Publisher = "Gearbox Publishing",
                     ListPrice = 30,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 2
                 }
                     );
         }
