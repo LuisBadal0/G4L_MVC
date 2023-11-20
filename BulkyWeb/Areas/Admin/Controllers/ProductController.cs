@@ -74,6 +74,17 @@ namespace StoreGWeb.Areas.Admin.Controllers
                     //Get location of the folder
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
+                    if (!string.IsNullOrEmpty(productVM.Product.ImageURL))
+                    {
+                        //Delete old image
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('/'));
+
+                        if(System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         //Copy the file to the folder
@@ -82,7 +93,15 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
                     productVM.Product.ImageURL = @"\images\product\" + fileName;
                 }
-                _UnitOfWork.Product.Add(productVM.Product);
+                if(productVM.Product.Id == 0)
+                {
+                    _UnitOfWork.Product.Add(productVM.Product);
+                }
+                else
+                {
+                    _UnitOfWork.Product.Update(productVM.Product);
+                }
+               
                 _UnitOfWork.Save();
                 //Add notification to the user
                 TempData["success"] = "Product Added!";
