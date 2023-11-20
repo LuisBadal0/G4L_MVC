@@ -31,7 +31,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 31,
                     Price50 = 26,
                     Price100 = 21,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageURL=""
                 },
                 new Product
                 {
@@ -43,7 +44,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 41,
                     Price50 = 36,
                     Price100 = 31,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageURL = ""
                 },
                 new Product
                 {
@@ -55,7 +57,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 39,
                     Price50 = 34,
                     Price100 = 29,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageURL = ""
                 },
                 new Product
                 {
@@ -67,7 +70,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 30,
                     Price50 = 25,
                     Price100 = 20,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageURL = ""
                 },
                 new Product
                 {
@@ -79,7 +83,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 36,
                     Price50 = 31,
                     Price100 = 26,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageURL = ""
                 },
                 new Product
                 {
@@ -91,7 +96,8 @@ namespace StoreGWeb.DataAccess.Data
                     ListPrice = 30,
                     Price50 = 25,
                     Price100 = 20,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageURL = ""
                 }
                     );
         }
