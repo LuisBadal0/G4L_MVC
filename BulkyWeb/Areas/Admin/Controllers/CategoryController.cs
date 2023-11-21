@@ -2,10 +2,13 @@
 using StoreG.Models;
 using StoreGWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using StoreG.Utility;
 
 namespace StoreGWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         
