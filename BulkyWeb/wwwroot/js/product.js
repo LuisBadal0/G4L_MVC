@@ -11,7 +11,6 @@ function loadDataTable() {
             { data: 'productName', className: "text-bg-dark", "width": "20%" },
             { data: 'developer', className: "text-bg-dark", "width": "15%" },
             { data: 'publisher', className: "text-bg-dark", "width": "25%" },
-            { data: 'description', className: "text-bg-dark", "width": "25%" },
             { data: 'listPrice', className: "text-bg-dark", "width": "5%" },
             { data: 'category.name', className: "text-bg-dark", "width": "15%" },
             {
