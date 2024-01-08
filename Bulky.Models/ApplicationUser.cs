@@ -18,8 +18,9 @@ namespace StoreG.Models
         public string? Country { get; set; }
         public string? PostalCode { get; set; }
         public string? StreetAddress { get; set; }
+        public int? CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         [ValidateNever]
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
     }
 }
