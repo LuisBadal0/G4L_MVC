@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreGWeb.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using StoreGWeb.DataAccess.Data;
 namespace StoreGWeb.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108161936_addCompanyTable")]
+    partial class addCompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,71 +279,6 @@ namespace StoreGWeb.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("StoreG.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Tech City",
-                            Name = "Bandai Namco",
-                            PhoneNumber = "6656456334",
-                            PostalCode = "123123",
-                            State = "IL",
-                            StreetAddress = "123 Tech St"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Tech2 City NYPD",
-                            Name = "From Software",
-                            PhoneNumber = "3456456334",
-                            PostalCode = "123123",
-                            State = "NY",
-                            StreetAddress = "123 NYPD St"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "British Tech City",
-                            Name = "Codemaster",
-                            PhoneNumber = "1156379334",
-                            PostalCode = "123123",
-                            State = "LND",
-                            StreetAddress = "123 British St"
-                        });
-                });
-
             modelBuilder.Entity("StoreG.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -386,7 +324,7 @@ namespace StoreGWeb.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
 
                     b.HasData(
                         new

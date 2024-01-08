@@ -14,6 +14,8 @@ namespace StoreGWeb.DataAccess.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Company> Companies { get; set; }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,6 +29,32 @@ namespace StoreGWeb.DataAccess.Data
                 new Category { Id = 3, Name = "Sports", DisplayOrder = 3 },
                 new Category { Id = 4, Name = "Horror", DisplayOrder = 4 }
                 );
+
+            modelBuilder.Entity<Company>().HasData(
+               new Company { Id = 1, Name = "Bandai Namco", StreetAddress="123 Tech St", City="Tech City",
+                   PostalCode="123123", State="IL", PhoneNumber="6656456334" },
+                new Company
+                {
+                    Id = 2,
+                    Name = "From Software",
+                    StreetAddress = "123 NYPD St",
+                    City = "Tech2 City NYPD",
+                    PostalCode = "123123",
+                    State = "NY",
+                    PhoneNumber = "3456456334"
+                },
+                new Company
+                {
+                    Id = 3,
+                    Name = "Codemaster",
+                    StreetAddress = "123 British St",
+                    City = "British Tech City",
+                    PostalCode = "123123",
+                    State = "LND",
+                    PhoneNumber = "1156379334"
+                }
+               );
+
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
