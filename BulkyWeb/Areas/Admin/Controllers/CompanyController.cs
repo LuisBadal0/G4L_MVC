@@ -23,14 +23,16 @@ namespace StoreGWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+
             //get all Companies
+
             List<Company> objCompanyList = _UnitOfWork.Company.GetAll().ToList();
 
             return View(objCompanyList);
         }
         public IActionResult Upsert(int? id)
         {
-            
+
             if (id == null || id == 0)
             {
                 //Create
@@ -39,8 +41,10 @@ namespace StoreGWeb.Areas.Admin.Controllers
             else
             {
                 //Update
+
                 Company Companyobj = _UnitOfWork.Company.Get(u => u.Id == id);
                 return View(Companyobj);
+
             }
 
             //ViewData
@@ -53,6 +57,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
         }
         [HttpPost]
+
         public IActionResult Upsert(Company Companyobj)
         {
             if (ModelState.IsValid)
@@ -73,7 +78,9 @@ namespace StoreGWeb.Areas.Admin.Controllers
             }
             else
             {
+
                 return View(Companyobj);
+
             }
         }
         #region API CALLS

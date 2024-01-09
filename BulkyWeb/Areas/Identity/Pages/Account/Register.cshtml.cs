@@ -46,6 +46,7 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
             IEmailSender emailSender,
             IUnitOfWork unitOfWork)
         {
+
             _roleManager = roleManager;
             _userManager = userManager;
             _userStore = userStore;
@@ -152,6 +153,7 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
+
                 })
             };
 
@@ -172,9 +174,10 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
                 user.StreetAddress = Input.StreetAddress;
                 user.City = Input.City;
                 user.Name = Input.Name;
-                user.PostalCode = Input.PostalCode; 
+                user.PostalCode = Input.PostalCode;
                 user.Country = Input.Country;
                 user.PhoneNumber = Input.PhoneNumber;
+
                 if (Input.Role == SD.Role_Company)
                 {
                     user.CompanyId = Input.CompanyId;

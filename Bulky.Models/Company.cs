@@ -8,6 +8,7 @@ namespace StoreG.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [MaxLength(100)]
         [DisplayName("Company Name")]
         public string Name { get; set; }
         [DisplayName("Street Name")]
@@ -20,4 +21,6 @@ namespace StoreG.Models
         public string? PhoneNumber { get; set; }
 
     }
+
 }
+
