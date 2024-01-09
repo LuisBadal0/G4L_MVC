@@ -135,6 +135,39 @@ namespace StoreGWeb.DataAccess.Data
                     ImageURL = ""
                 }
                     );
+
+            modelBuilder.Entity<Company>().HasData(
+               new Company
+               {
+                   Id = 1,
+                   Name = "Bandai Namco",
+                   StreetAddress = "123 Tech St",
+                   City = "Tech City",
+                   PostalCode = "123123",
+                   State = "IL",
+                   PhoneNumber = "6656456334"
+               },
+                new Company
+                {
+                    Id = 2,
+                    Name = "From Software",
+                    StreetAddress = "123 NYPD St",
+                    City = "Tech2 City NYPD",
+                    PostalCode = "123123",
+                    State = "NY",
+                    PhoneNumber = "3456456334"
+                },
+                new Company
+                {
+                    Id = 3,
+                    Name = "Codemaster",
+                    StreetAddress = "123 British St",
+                    City = "British Tech City",
+                    PostalCode = "123123",
+                    State = "LND",
+                    PhoneNumber = "1156379334"
+                }
+               );
         }
     }
 }

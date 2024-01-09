@@ -153,7 +153,8 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-                }),
+
+                })
             };
 
             ReturnUrl = returnUrl;
@@ -176,9 +177,10 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
                 user.PostalCode = Input.PostalCode;
                 user.Country = Input.Country;
                 user.PhoneNumber = Input.PhoneNumber;
-                if(Input.Role == SD.Role_Company)
+
+                if (Input.Role == SD.Role_Company)
                 {
-                    user.CompanyId= Input.CompanyId;
+                    user.CompanyId = Input.CompanyId;
                 }
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

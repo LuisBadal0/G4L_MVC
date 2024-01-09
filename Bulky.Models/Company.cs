@@ -21,4 +21,6 @@ namespace StoreG.Models
         public string? PhoneNumber { get; set; }
 
     }
+
 }
+
