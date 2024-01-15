@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreG.DataAccess.Repository.IRepository;
+using StoreG.Models;
 using StoreG.Models.ViewModels;
 using System.Security.Claims;
 
@@ -25,7 +26,29 @@ namespace StoreGWeb.Areas.Customer.Controllers
             {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product")
             };
+
+            foreach(var cart in ShoppingCartVM.ShoppingCartList)
+            {
+                cart.Price = GetPriceBasedOnQuantity(cart);
+                ShoppingCartVM.OrderTotal += (cart.Price * cart.Count);
+            }
+
             return View(ShoppingCartVM);
+        }
+
+        private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
+        {
+            if(shoppingCart.Count <= 50)
+            {
+                return shoppingCart.Product.ListPrice;
+            }
+            else
+            {
+                if (shoppingCart.Count <= 100) { 
+                    return shoppingCart.Product.Price50;
+                }
+                else { return shoppingCart.Product.Price100; }
+            }
         }
     }
 }

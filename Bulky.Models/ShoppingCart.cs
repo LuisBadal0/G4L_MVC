@@ -22,5 +22,9 @@ namespace StoreG.Models
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
+
+        //Doesn't Create on DB
+        [NotMapped]
+        public double Price { get; set; }
     }
 }
