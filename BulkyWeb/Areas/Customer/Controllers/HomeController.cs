@@ -51,12 +51,15 @@ namespace StoreGWeb.Areas.Customer.Controllers
                 //exists
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                TempData["success"] = "Updated cart";
             }
             else
             {
                 //Is empty
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                TempData["success"] = "Added to cart";
             }
+            
             _unitOfWork.Save();
 
 
