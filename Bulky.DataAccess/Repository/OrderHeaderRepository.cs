@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace StoreG.DataAccess.Repository
 {
-    public class OrderHeaderRepository : Repository<OrderDetail>, IOrderHeaderRepository 
+    public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository 
     {
         private ApplicationDbContext _db;
         public OrderHeaderRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
-        public void Update(Category obj)
+        public void Update(OrderHeader obj)
         {
             _db.OrderHeaders.Update(obj);
         }

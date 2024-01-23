@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StoreG.DataAccess.Repository
 {
-    public class OrderDetailRepository : Repository<Category>, IOrderDetailRepository
+    public class OrderDetailRepository : Repository<OrderDetail>, IOrderDetailRepository
     {
         private ApplicationDbContext _db;
         public OrderDetailRepository(ApplicationDbContext db) : base(db)
