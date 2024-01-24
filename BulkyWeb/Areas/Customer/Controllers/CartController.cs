@@ -81,6 +81,11 @@ namespace StoreGWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product");
 
+            //This doesn't work since we are trying to add a navigation property already populated(id)!!!!
+            //ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+
+            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+
             //Populate with time and userId
             ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
             ShoppingCartVM.OrderHeader.ApplicationUserId = userId;
@@ -93,7 +98,7 @@ namespace StoreGWeb.Areas.Customer.Controllers
 				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
 			}
             //User has a company ID and put values regarding it
-            if (ShoppingCartVM.OrderHeader.ApplicationUser.CompanyId.GetValueOrDefault() == 0)
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0)
             {
                 //Regular Customer
                 ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
@@ -118,12 +123,27 @@ namespace StoreGWeb.Areas.Customer.Controllers
                     Price = cart.Price,
                     Count = cart.Count
                 };
+                //Random Generate key(Not Working ATM/Missing field, only does 1 key)
+                //string key = keyGenerator();
+
                 _unitOfWork.OrderDetail.Add(orderDetail);
                 _unitOfWork.Save();
             }
 
-			return View(ShoppingCartVM);
+			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+			{
+				//Regular Customer Get Payment
+                //Stripe logic
+			}
+
+            //Passing Id value to IActionResult
+            return RedirectToAction(nameof(OrderConfirmation), new {id=ShoppingCartVM.OrderHeader.Id});
 		}
+
+        public IActionResult OrderConfirmation(int id)
+        {
+            return View(id);
+        }
 
 		public IActionResult Plus(int cartId)
         {
@@ -177,6 +197,33 @@ namespace StoreGWeb.Areas.Customer.Controllers
                 }
                 else { return shoppingCart.Product.Price100; }
             }
+        }
+        //Not Working ATM
+        static String keyGenerator()
+        {
+            String theKey = "";
+            for (int i = 0; i < 5; i++)
+            {
+                theKey += charGenerator();
+            }
+            theKey += "-";
+            for (int i = 0; i < 5; i++)
+            {
+                theKey += charGenerator();
+            }
+            theKey += "-";
+            for (int i = 0; i < 5; i++)
+            {
+                theKey += charGenerator();
+            }
+            return theKey;
+        }
+        static char charGenerator()
+        {
+            String map = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            Random rand = new Random();
+            int num = rand.Next(0, map.Length - 1);
+            return map[num];
         }
     }
 }
