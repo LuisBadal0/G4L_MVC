@@ -30,6 +30,8 @@ namespace StoreG.Models
         public DateTime PaymentDate { get; set; }
         //DateOnly .Net 8+ Exclusive
         public DateOnly PaymentDueDate { get; set; }
+
+        public string SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
 
         [Required]
