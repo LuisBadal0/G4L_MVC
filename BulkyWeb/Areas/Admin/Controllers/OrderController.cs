@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StoreG.DataAccess.Repository.IRepository;
 using StoreG.Models;
+using StoreG.Models.ViewModels;
 using StoreG.Utility;
 using System.Diagnostics;
 
@@ -21,6 +22,17 @@ namespace StoreGWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Details(int orderId)
+        {
+            OrderVM orderVM = new()
+            {
+                OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
+                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeaderId == orderId, includeProperties: "Product")
+            };
+
+            return View(orderVM);
         }
 
         #region API CALLS
