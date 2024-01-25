@@ -5,6 +5,7 @@ using StoreG.Models;
 
 namespace StoreGWeb.Areas.Admin.Controllers
 {
+    [Area("admin")]
     public class OrderController : Controller
     {
 
