@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using StoreG.DataAccess.Repository.IRepository;
 using StoreG.Models;
@@ -13,6 +14,8 @@ namespace StoreGWeb.Areas.Admin.Controllers
     {
 
         private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
+        public OrderVM OrderVM { get; set; }
 
         public OrderController(IUnitOfWork unitOfWork)
         {
@@ -21,7 +24,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(OrderVM);
         }
 
         public IActionResult Details(int orderId)
@@ -33,6 +36,35 @@ namespace StoreGWeb.Areas.Admin.Controllers
             };
 
             return View(orderVM);
+        }
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin+","+SD.Role_Employee)]
+        public IActionResult UpdateOrderDetail()
+        {
+        //Getting All OrderHeaders to Map
+
+            //Get ID from order
+            var orderHeaderFromDb = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
+            orderHeaderFromDb.Name = OrderVM.OrderHeader.Name;
+            orderHeaderFromDb.PhoneNumber = OrderVM.OrderHeader.PhoneNumber;
+            orderHeaderFromDb.StreetAddress = OrderVM.OrderHeader.StreetAddress;
+            orderHeaderFromDb.City = OrderVM.OrderHeader.City;
+            orderHeaderFromDb.Country = OrderVM.OrderHeader.Country;
+            orderHeaderFromDb.PostalCode = OrderVM.OrderHeader.PostalCode;
+            //Making sure tracking and carrier are not empty
+            if (!string.IsNullOrEmpty(OrderVM.OrderHeader.Carrier))
+            {
+                orderHeaderFromDb.Carrier = OrderVM.OrderHeader.Carrier;
+            }
+            if (!string.IsNullOrEmpty(OrderVM.OrderHeader.TrackingNumber))
+            {
+                orderHeaderFromDb.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
+            }
+            _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
+            _unitOfWork.Save();
+
+            TempData["Success"] = "Order Updated Successfully!";
+            return RedirectToAction(nameof(Details), new {orderId = orderHeaderFromDb.Id});
         }
 
         #region API CALLS
