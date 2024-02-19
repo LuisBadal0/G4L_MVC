@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace StoreG.Models.ViewModels
 {
-    public class ShoppingCartVM
+    public class OrderVM
     {
-        public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
-
         public OrderHeader OrderHeader { get; set; }
+        //Collection
+        public IEnumerable<OrderDetail> OrderDetail { get; set; }
     }
 }
