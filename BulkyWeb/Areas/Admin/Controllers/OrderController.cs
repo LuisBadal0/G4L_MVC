@@ -5,6 +5,7 @@ using StoreG.DataAccess.Repository.IRepository;
 using StoreG.Models;
 using StoreG.Models.ViewModels;
 using StoreG.Utility;
+using Stripe;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -99,6 +100,40 @@ namespace StoreGWeb.Areas.Admin.Controllers
             TempData["Success"] = "Order is being Shipped";
             return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
         }
+
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+        public IActionResult CancelOrder()
+        {
+            //Get order
+            var orderHeader = _unitOfWork.OrderHeader.Get(u=>u.Id ==OrderVM.OrderHeader.Id);
+
+
+            //refund order
+            if(orderHeader.PaymentStatus == SD.PaymentStatusApproved)
+            {
+                //striper options to refund
+                var options = new RefundCreateOptions
+                {
+                    Reason = RefundReasons.RequestedByCustomer,
+                    PaymentIntent = orderHeader.PaymentIntentId
+                };
+
+                var service = new RefundService();
+                Refund refund = service.Create(options);
+
+                _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusRefunded);
+            }
+            else
+            {
+                _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusCancelled);
+            }
+            //Save
+            _unitOfWork.Save();
+            TempData["Success"] = "Order is Cancelled";
+            return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+        }
+        
 
         #region API CALLS
 
