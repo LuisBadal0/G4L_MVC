@@ -24,15 +24,17 @@ Home and Details Page ![100%](https://progress-bar.dev/100)
 
 Identity in .NET Core ![100%](https://progress-bar.dev/100)
 
+
+
+**ROADMAP 2024**
+
 Company CRUD ![100%](https://progress-bar.dev/100)
 
 Shopping Cart ![100%](https://progress-bar.dev/100)
 
 Order Confirmation ![100%](https://progress-bar.dev/100)
 
-**ROADMAP 2024**
-
-Order Management ![50%](https://progress-bar.dev/50)
+Order Management ![100%](https://progress-bar.dev/50)
 
 Advanced Concepts ![0%](https://progress-bar.dev/0)
 
