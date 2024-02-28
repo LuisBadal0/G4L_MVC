@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using StoreG.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using StoreG.DataAccess.DbInicializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddScoped<IDbInitializer, IDbInitializer>();
 //Use Razor Pages
 builder.Services.AddRazorPages();
 
@@ -68,9 +70,22 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+//Invoke Initializer 
+SeedDatabase();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+
+void SeedDatabase()
+{
+    using(var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
