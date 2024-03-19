@@ -1,10 +1,30 @@
+# **G4L_MVC**
+
 This is a e-commerce shop following along this course: https://www.udemy.com/course/complete-aspnet-core-21-course/learn/lecture/37136554
 
+## Table of Contents
+(soon)
+<!--- [Media](#media)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Building](#building)
+- [Contributions](#contributions)
+- [Contributing](#contributing)
+- [License](#license)
+- [Future of the project](#future)
+--->
+## How to install the project
 
+```
+#add-migration [name]
+#update-database
+
+Run the Project
+```
 
 <details>
 
-<summary>Roadmap</summary>
+**<summary>Roadmap</summary>**
 
 ### Already Implemented
 
