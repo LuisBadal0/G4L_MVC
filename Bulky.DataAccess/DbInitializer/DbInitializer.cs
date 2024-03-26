@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace StoreG.DataAccess.DbInicializer
 {
-    internal class DbInitializer : IDbInitializer
+    public class DbInitializer : IDbInitializer
     {
         //Dependecy Injection
         private readonly UserManager<IdentityUser> _userManager;
@@ -57,7 +57,7 @@ namespace StoreG.DataAccess.DbInicializer
                     Country = "Portugal",
                     PostalCode = "12345",
                     City = "Lisbon"
-                }, "123ASD_").GetAwaiter().GetResult();
+                }, "123Asd_").GetAwaiter().GetResult();
 
                 ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@a.aa");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();

@@ -42,13 +42,13 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddScoped<IDbInitializer, IDbInitializer>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 //Use Razor Pages
 builder.Services.AddRazorPages();
 
 //Load all the categories from the repos, so the controller can access 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IEmailSender, EmailSender>();
+//builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
