@@ -138,7 +138,7 @@ namespace StoreGWeb.Areas.Customer.Controllers
 			{
                 //Regular Customer Get Payment
                 //Stripe logic
-                var domain = "https://localhost:7262";
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
                 var options = new SessionCreateOptions
                 {
                     SuccessUrl = domain+$"/customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
