@@ -142,7 +142,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
             var orderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeaderId == OrderVM.OrderHeader.Id, includeProperties: "Product");
 
             //Stripe logic
-            var domain = "https://localhost:7262";
+            var domain = Request.Scheme + "://" + Request.Host.Value + "/"; ;
             var options = new SessionCreateOptions
             {
                 SuccessUrl = domain + $"/admin/order/PaymentConfirmation?orderHeaderId={OrderVM.OrderHeader.Id}",

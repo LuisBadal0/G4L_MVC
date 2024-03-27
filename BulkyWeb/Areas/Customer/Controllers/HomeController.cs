@@ -4,6 +4,8 @@ using System.Diagnostics;
 using StoreG.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using StoreG.Utility;
+using Microsoft.AspNetCore.Http;
 
 namespace StoreGWeb.Areas.Customer.Controllers
 {
@@ -43,24 +45,28 @@ namespace StoreGWeb.Areas.Customer.Controllers
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = userId;
 
-            ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(u=>u.ApplicationUserId == userId &&
+            ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId &&
             u.ProductId == shoppingCart.ProductId);
-            
-            if(cartFromDb != null)
+
+            if (cartFromDb != null)
             {
                 //exists
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
                 TempData["success"] = "Updated cart";
+
             }
             else
             {
                 //Is empty
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
-                TempData["success"] = "Added to cart";
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
             }
-            
-            _unitOfWork.Save();
+            TempData["success"] = "Added to cart";
+
 
 
             return RedirectToAction(nameof(Index));

@@ -213,7 +213,13 @@ namespace StoreGWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        if(!User.IsInRole(SD.Role_Admin)) {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
+                        else
+                        {
+                            TempData["success"] = "New User Created!";
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

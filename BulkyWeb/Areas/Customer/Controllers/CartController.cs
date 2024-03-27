@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using StoreG.DataAccess.Repository.IRepository;
 using StoreG.Models;
@@ -14,12 +15,14 @@ namespace StoreGWeb.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailSender _emailSender;
         //Getting values populated in the shoppingCartVM with BindProperty
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -135,7 +138,7 @@ namespace StoreGWeb.Areas.Customer.Controllers
 			{
                 //Regular Customer Get Payment
                 //Stripe logic
-                var domain = "https://localhost:7262";
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
                 var options = new SessionCreateOptions
                 {
                     SuccessUrl = domain+$"/customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
@@ -191,7 +194,10 @@ namespace StoreGWeb.Areas.Customer.Controllers
                     _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                     _unitOfWork.Save();
                 }
+                //Clear cart after purchase
+                HttpContext.Session.Clear();
             }
+            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - StoreG", $"<p>New Order Created - {orderHeader.Id}</+>");
 
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 
@@ -215,11 +221,13 @@ namespace StoreGWeb.Areas.Customer.Controllers
         public IActionResult Minus(int cartId)
         {
 
-            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId, tracked:true);
             if (cartFromDb.Count <= 1)
             {
                 //Remove from cart
                 _unitOfWork.ShoppingCart.Remove(cartFromDb);
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             }
             else
             {
@@ -233,7 +241,9 @@ namespace StoreGWeb.Areas.Customer.Controllers
 
         public IActionResult Remove(int cartId)
         {
-            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId, tracked:true);
+            HttpContext.Session.SetInt32(SD.SessionCart,
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count()-1);
             _unitOfWork.ShoppingCart.Remove(cartFromDb);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
