@@ -56,9 +56,9 @@ Order Confirmation ![100%](https://progress-bar.dev/100)
 
 Order Management ![100%](https://progress-bar.dev/50)
 
-Advanced Concepts ![0%](https://progress-bar.dev/0)
+Advanced Concepts ![100%](https://progress-bar.dev/0)
 
-Deployment & email ![0%](https://progress-bar.dev/0)
+Deployment & email ![100%](https://progress-bar.dev/0)
 
 User Management ![0%](https://progress-bar.dev/0)
 
