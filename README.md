@@ -1,5 +1,7 @@
 # **G4L_MVC**
 
+[![.Build](https://github.com/LuisBadal0/G4L_MVC/actions/workflows/buildTest.yml/badge.svg?branch=main)](https://github.com/LuisBadal0/G4L_MVC/actions/workflows/buildTest.yml)
+
 This is a e-commerce shop following along this course: https://www.udemy.com/course/complete-aspnet-core-21-course/learn/lecture/37136554
 
 ## Table of Contents
