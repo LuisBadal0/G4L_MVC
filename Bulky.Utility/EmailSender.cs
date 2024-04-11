@@ -10,6 +10,15 @@ using System.Threading.Tasks;
 
 namespace StoreG.Utility
 {
+    public class EmailSender : IEmailSender
+    {
+        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    //SENDGRIND EMAIL (Populate secrets since its missing, must have self hosted account)
     //public class EmailSender :IEmailSender
     //{
     //    public string SendGridSecret {  get; set; }

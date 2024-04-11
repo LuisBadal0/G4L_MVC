@@ -48,7 +48,7 @@ builder.Services.AddRazorPages();
 
 //Load all the categories from the repos, so the controller can access 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-//builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
