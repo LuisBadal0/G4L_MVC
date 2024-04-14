@@ -95,16 +95,5 @@ Multiple Product Image ![0%](https://progress-bar.dev/0)
 ![Main Page](https://i.imgur.com/qRFDX77.png)
 
 
-## How to install the project
-
-```
-#add-migration [name]
-#update-database
-
-Run the Project
-```
-
-
-
 
 
