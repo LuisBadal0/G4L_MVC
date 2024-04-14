@@ -5,6 +5,14 @@
 ## About
 This is a e-commerce shop following along this course: https://www.udemy.com/course/complete-aspnet-core-21-course/learn/lecture/37136554
 
+<p align="center">
+  
+  | :exclamation:  Disclaimer   |
+  |-----------------------------------------|
+  This app does not supply with images or sends keys from any application. **It's only for test and development purpose!** 
+  
+</p>
+
 ## Development
 
 <details>
