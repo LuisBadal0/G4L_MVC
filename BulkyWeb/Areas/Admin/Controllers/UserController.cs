@@ -26,7 +26,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
         {
             return View();
         }
-       
+
         #region API CALLS
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
                 var roleId = userRoles.FirstOrDefault(u => u.UserId == user.Id).RoleId;
                 user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
 
-                if(user.Company == null)
+                if (user.Company == null)
                 {
                     user.Company = new() { Name = "" };
                 }
@@ -52,11 +52,25 @@ namespace StoreGWeb.Areas.Admin.Controllers
 
             return Json(new { data = objUserList });
         }
-        [HttpDelete]
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public IActionResult LockUnlock([FromBody] string id)
         {
-            
-            return Json(new { success = true, message = "Deleted successfully" });
+            var objFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.Id == id);
+            if(objFromDb == null) { 
+            return Json(new { success = false, message = "Error!" });
+            }
+
+            if(objFromDb.LockoutEnd != null && objFromDb.LockoutEnd > DateTime.Now) {
+                //User Currently Locked and need to unlock
+                objFromDb.LockoutEnd = DateTime.Now;
+            }
+            else
+            {
+                //Locking User
+                objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+            }
+            _db.SaveChanges();
+            return Json(new { success = true, message = "Operation successfully" });
         }
         #endregion
     }
