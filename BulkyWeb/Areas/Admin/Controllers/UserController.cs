@@ -32,11 +32,18 @@ namespace StoreGWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll(int id)
         {
-
+            //Get All Users
             List<ApplicationUser> objUserList = _db.ApplicationUsers.Include(u => u.Company).ToList();
+
+            //Get userRoles and Roles
+            var userRoles = _db.UserRoles.ToList();
+            var roles = _db.Roles.ToList();
 
             foreach (var user in objUserList)
             {
+                var roleId = userRoles.FirstOrDefault(u => u.UserId == user.Id).RoleId;
+                user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
+
                 if(user.Company == null)
                 {
                     user.Company = new() { Name = "" };

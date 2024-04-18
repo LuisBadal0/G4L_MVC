@@ -11,7 +11,7 @@ function loadDataTable() {
             { data: 'name', className: "text-bg-dark", "width": "20%" },
             { data: 'email', className: "text-bg-dark", "width": "15%" },
             { data: 'company.name', className: "text-bg-dark", "width": "25%" },
-            { data: '', className: "text-bg-dark", "width": "5%" },
+            { data: 'role', className: "text-bg-dark", "width": "5%" },
             { data: 'phoneNumber', className: "text-bg-dark", "width": "15%" },
             {
                 data: 'id', className: "text-bg-dark",
