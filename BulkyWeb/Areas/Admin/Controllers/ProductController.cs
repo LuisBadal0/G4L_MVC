@@ -51,7 +51,7 @@ namespace StoreGWeb.Areas.Admin.Controllers
             else
             {
                 //Update
-                productVM.Product = _UnitOfWork.Product.Get(u => u.Id == id);
+                productVM.Product = _UnitOfWork.Product.Get(u => u.Id == id, includeProperties:"ProductImages");
                 return View(productVM);
             }
 
