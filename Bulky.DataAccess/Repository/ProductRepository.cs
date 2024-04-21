@@ -30,6 +30,7 @@ namespace StoreG.DataAccess.Repository
                 objFromDb.Price50 = obj.Price50;
                 objFromDb.Price100 = obj.Price100;
                 objFromDb.CategoryId = obj.CategoryId;
+                objFromDb.ProductImages = obj.ProductImages;
                 //if (obj.ImageURL != null)
                 //{
                 //    objFromDb.ImageURL = obj.ImageURL;

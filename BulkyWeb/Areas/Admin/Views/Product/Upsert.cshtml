@@ -4,7 +4,7 @@
     <div class="card-header bg-body bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-primary py-2 fw-bold">@(Model.Product.Id !=0 ? "Update" : "Create") Product</h2>
+                <h2 class="text-primary py-2 fw-bold">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
             </div>
         </div>
     </div>
@@ -74,8 +74,8 @@
 
                         </div>
                         <div class="form-floating py-2 col-12">
-                            <input type="file" name="file" class="form-control border-0 shadow" />
-                            @* <label asp-for="Product.ImageURL" class="ms-2 text-dark"></label> *@
+                            <input type="file" name="files" class="form-control border-0 shadow" multiple />
+                            <label asp-for="Product.ProductImages" class="ms-2 text-dark"></label>
                         </div>
                         <div class="row pt-2">
                             <div class="col-6 col-md 3">
@@ -99,7 +99,7 @@
                     @* <img src ="@Model.Product.ImageURL" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"/> *@
                 </div>
             </div>
-            
+
         </form>
     </div>
 </div>
