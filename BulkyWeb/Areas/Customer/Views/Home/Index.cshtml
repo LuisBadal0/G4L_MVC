@@ -8,6 +8,14 @@
             <div class="row p-2">
                 <div class="col-12 p-1 bd">
                     <div class="card border-0 p-2 shadow rounded">
+                        @if(product.ProductImages!=null && product.ProductImages.Count() > 0)
+                        {
+                            <img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounder" />
+                        }
+                        else
+                        {
+                            <img src="https://placehold.co/500x600/png" class="card-img-top rounder" />
+                        }
                         @* <img src="@product.ImageURL" class="card-img-top rounder" /> *@
                         <div class="card-body pb-0 bg">
                             <div class="pl-1">
