@@ -77,24 +77,24 @@ namespace StoreGWeb.Areas.Admin.Controllers
                     //Get location of the folder
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    if (!string.IsNullOrEmpty(productVM.Product.ImageURL))
-                    {
-                        //Delete old image
-                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('\\'));
+                    //if (!string.IsNullOrEmpty(productVM.Product.ImageURL))
+                    //{
+                    //    //Delete old image
+                    //    var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageURL.TrimStart('\\'));
 
-                        if (System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
+                    //    if (System.IO.File.Exists(oldImagePath))
+                    //    {
+                    //        System.IO.File.Delete(oldImagePath);
+                    //    }
+                    //}
 
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    {
-                        //Copy the file to the folder
-                        file.CopyTo(fileStream);
-                    }
+                    //using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    //{
+                    //    //Copy the file to the folder
+                    //    file.CopyTo(fileStream);
+                    //}
 
-                    productVM.Product.ImageURL = @"\images\product\" + fileName;
+                    //productVM.Product.ImageURL = @"\images\product\" + fileName;
                 }
                 if (productVM.Product.Id == 0)
                 {
@@ -141,12 +141,12 @@ namespace StoreGWeb.Areas.Admin.Controllers
             }
 
             //Delete old image
-            var oldImagePath = Path.Combine(_WebHostEnvironment.WebRootPath, productToBeDeleted.ImageURL.TrimStart('\\'));
+            //var oldImagePath = Path.Combine(_WebHostEnvironment.WebRootPath, productToBeDeleted.ImageURL.TrimStart('\\'));
 
-            if (System.IO.File.Exists(oldImagePath))
-            {
-                System.IO.File.Delete(oldImagePath);
-            }
+            //if (System.IO.File.Exists(oldImagePath))
+            //{
+            //    System.IO.File.Delete(oldImagePath);
+            //}
 
             _UnitOfWork.Product.Remove(productToBeDeleted);
             _UnitOfWork.Save();
