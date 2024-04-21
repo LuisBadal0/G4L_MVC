@@ -137,6 +137,32 @@ namespace StoreGWeb.Areas.Admin.Controllers
                 return View(productVM);
             }
         }
+
+        public IActionResult DeleteImage(int imageId)
+        {
+            var imageToBeDeleted = _UnitOfWork.ProductImage.Get(u  => u.Id == imageId);
+            int productId = imageToBeDeleted.ProductId;
+            if (imageToBeDeleted != null)
+            {
+                if (!string.IsNullOrEmpty(imageToBeDeleted.ImageUrl))
+                {
+                    
+                    var oldImagePath = Path.Combine(_WebHostEnvironment.WebRootPath, imageToBeDeleted.ImageUrl.TrimStart('\\'));
+
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                _UnitOfWork.ProductImage.Remove(imageToBeDeleted);
+                _UnitOfWork.Save();
+
+                TempData["success"] = "Deleted Successfully!";
+            }
+
+            return RedirectToAction(nameof(Upsert), new {id= productId });
+        }
+
         #region API CALLS
 
         [HttpGet]
