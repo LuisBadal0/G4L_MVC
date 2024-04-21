@@ -191,6 +191,24 @@ namespace StoreGWeb.Areas.Admin.Controllers
             //    System.IO.File.Delete(oldImagePath);
             //}
 
+            //Get productId to name a folder
+            string productPath = @"images\products\product-" + id;
+            //Get location of the folder
+            string finalPath = Path.Combine(_WebHostEnvironment.WebRootPath, productPath);
+
+            if (!Directory.Exists(finalPath))
+            {
+                //Get all files images path
+                string[] filePaths = Directory.GetFiles(finalPath);
+                //Delete each image
+                foreach (string filePath in filePaths)
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                Directory.Delete(finalPath);
+            }
+
+
             _UnitOfWork.Product.Remove(productToBeDeleted);
             _UnitOfWork.Save();
 
