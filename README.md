@@ -68,7 +68,7 @@ Multiple Product Image ![0%](https://progress-bar.dev/0)
 
 ## Run Project
 
-Open **CMD** and time the following:
+Open **CMD** and time the following to create the database for the project:
 ```
 sqllocaldb create "BulkyDb"
 ```
