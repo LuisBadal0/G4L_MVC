@@ -54,15 +54,17 @@ Advanced Concepts ![100%](https://progress-bar.dev/100)
 
 Deployment & email ![100%](https://progress-bar.dev/100)
 
+User Management ![100%](https://progress-bar.dev/100)
+
+Multiple Product Image ![100%](https://progress-bar.dev/100)
+
 </details>
 
 <details>
   
 **<summary>In Development</summary>**
 
-User Management ![0%](https://progress-bar.dev/0)
 
-Multiple Product Image ![0%](https://progress-bar.dev/0)
   
 </details>
 
