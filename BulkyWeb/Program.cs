@@ -29,11 +29,11 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 
 
 //Facebook Login
-builder.Services.AddAuthentication().AddFacebook(option =>
-{
-    option.AppId = builder.Configuration.GetSection("Facebook")["Authentication:AppId"];
-    option.AppSecret = builder.Configuration.GetSection("Facebook")["Authentication:AppSecret"];
-});
+//builder.Services.AddAuthentication().AddFacebook(option =>
+//{
+//    option.AppId = builder.Configuration.GetSection("Facebook")["Authentication:AppId"];
+//    option.AppSecret = builder.Configuration.GetSection("Facebook")["Authentication:AppSecret"];
+//});
 
 //Microsoft Login
 builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
