@@ -36,11 +36,11 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 //});
 
 //Microsoft Login
-builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
-{
-    option.ClientId = builder.Configuration.GetSection("Microsoft")["Authentication:ClientId"];
-    option.ClientSecret = builder.Configuration.GetSection("Microsoft")["Authentication:ClientSecret"];
-});
+//builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
+//{
+//    option.ClientId = builder.Configuration.GetSection("Microsoft")["Authentication:ClientId"];
+//    option.ClientSecret = builder.Configuration.GetSection("Microsoft")["Authentication:ClientSecret"];
+//});
 
 //Adding Sessions to Services
 builder.Services.AddDistributedMemoryCache();
