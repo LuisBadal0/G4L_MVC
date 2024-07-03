@@ -28,11 +28,18 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 
+//Facebook Login
+//builder.Services.AddAuthentication().AddFacebook(option =>
+//{
+//    option.AppId = builder.Configuration.GetSection("Facebook")["Authentication:AppId"];
+//    option.AppSecret = builder.Configuration.GetSection("Facebook")["Authentication:AppSecret"];
+//});
 
-builder.Services.AddAuthentication().AddFacebook(option =>
+//Microsoft Login
+builder.Services.AddAuthentication().AddMicrosoftAccount(option =>
 {
-    option.AppId = builder.Configuration["Authentication:Facebook:AppId"];
-    option.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+    option.ClientId = builder.Configuration.GetSection("Microsoft")["Authentication:ClientId"];
+    option.ClientSecret = builder.Configuration.GetSection("Microsoft")["Authentication:ClientSecret"];
 });
 
 //Adding Sessions to Services

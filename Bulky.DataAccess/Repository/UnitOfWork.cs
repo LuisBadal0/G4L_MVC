@@ -18,7 +18,7 @@ namespace StoreG.DataAccess.Repository
         public ICompanyRepository Company { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
-
+        public IProductImageRepository ProductImage { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
 
         public IOrderHeaderRepository OrderHeader { get; private set; }
@@ -30,6 +30,7 @@ namespace StoreG.DataAccess.Repository
             Company = new CompanyRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
+            ProductImage = new ProductImageRepository(_db);
             OrderHeader = new OrderHeaderRepository(_db);
             OrderDetail = new OrderDetailRepository(_db);
         }

@@ -1,9 +1,9 @@
 ﻿var dataTable;
 
-$(document).ready(function () {
+$(function () {
+    // Handler for .ready() called.
     loadDataTable();
 });
-
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/admin/product/getall' },

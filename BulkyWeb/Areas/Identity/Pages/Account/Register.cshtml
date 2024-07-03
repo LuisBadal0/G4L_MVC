@@ -22,7 +22,7 @@
         <div class="row pt-3">
             <div class="col-md-12">
                 <form id="registerForm" class="row" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                    <h3 class="border-bottom pb-3 mb-4 text-secondary text-center">Create a new account.</h3>
+                    <h3 class="border-bottom pb-3 mb-4 text-secondary text-center fw-bold">Create a new account.</h3>
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-floating mb-3 col-md-12">
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -97,10 +97,10 @@
                 </form>
             </div>
             @if(!User.IsInRole(SD.Role_Admin)){
-            <div class="col-md-12">
+            <div class="col-md-12 text-center fw-bold">
                 <section>
                     <p class="divider-text d-flex text-primary pt-3">or</p>
-                    <h3>Use another service to register.</h3>
+                        <h3 class="fw-bold">Use another service to register.</h3>
                     @{
                         if ((Model.ExternalLogins?.Count ?? 0) == 0)
                         {
