@@ -5,6 +5,8 @@
 ## About
 This is a e-commerce shop following along this course: https://www.udemy.com/course/complete-aspnet-core-21-course/learn/lecture/37136554
 
+## Run Project
+
 <p align="center">
   
   | :exclamation:  Disclaimer   |
@@ -63,6 +65,14 @@ User Management ![0%](https://progress-bar.dev/0)
 Multiple Product Image ![0%](https://progress-bar.dev/0)
   
 </details>
+
+## Run Project
+
+Open **CMD** and time the following to create the database for the project:
+```
+sqllocaldb create "BulkyDb"
+```
+**Run** the project
 
 ## Table of Contents
 (soon)
