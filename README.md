@@ -5,8 +5,6 @@
 ## About
 This is a e-commerce shop following along this course: https://www.udemy.com/course/complete-aspnet-core-21-course/learn/lecture/37136554
 
-## Run Project
-
 <p align="center">
   
   | :exclamation:  Disclaimer   |
